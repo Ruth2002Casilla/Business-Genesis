@@ -2,19 +2,24 @@
 {
     public class ActividadesClaves
     {
-        public int Id { get; set; } // Identificador único para cada entrada
+        public int Id { get; set; }
 
-        // Pregunta 1: ¿Qué actividades son esenciales para que tu negocio funcione?
-        public List<string> ActividadesEsenciales { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        // Pregunta 1
+        public List<string> ActividadesEsenciales { get; set; }
 
-        // Pregunta 2: ¿Qué actividades apoyan directamente tu propuesta de valor?
-        public List<string> ActividadesQueApoyanPropuesta { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        // Pregunta 2
+        public List<string> ActividadesQueApoyanPropuesta { get; set; }
 
-        // Pregunta 3: ¿Qué actividades realizas tú mismo y cuáles delegas?
-        public List<string> ActividadesQueRealizoYDelego { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        // Pregunta 3
+        public List<string> ActividadesQueRealizoYDelego { get; set; }
 
-        // Pregunta 4: ¿Con qué frecuencia realizas estas actividades clave?
-        public string FrecuenciaDeActividades { get; set; } // Respuesta seleccionada (select)
+        // Pregunta 4
+        public string FrecuenciaDeActividades { get; set; }
 
+        // Pregunta 5 - Actividades que se pueden automatizar
+        public List<string> ActividadesParaAutomatizar { get; set; }
+
+        // Pregunta 6 - Dependencia externa
+        public string DependenciaDeActividadExterna { get; set; }
     }
 }
