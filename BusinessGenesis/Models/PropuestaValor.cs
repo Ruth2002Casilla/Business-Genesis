@@ -8,7 +8,7 @@
         public string ProblemaResuelto { get; set; } // Almacena la respuesta de la opción seleccionada
 
         // Pregunta 2: ¿Qué beneficios principales ofrece tu producto al cliente?
-        public List<string> BeneficiosPrincipales { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        public string BeneficiosPrincipales { get; set; } // Lista de respuestas seleccionadas (checkbox)
 
         // Pregunta 3: ¿Tu propuesta de valor se basa en algo que tus competidores no ofrecen?
         public string Competencia { get; set; } // Opción seleccionada

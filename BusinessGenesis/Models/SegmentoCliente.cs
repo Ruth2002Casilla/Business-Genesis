@@ -8,13 +8,13 @@
         public string ClientePrincipal { get; set; } // Almacena la respuesta seleccionada
 
         // Pregunta 2: ¿A qué grupo demográfico pertenece tu cliente?
-        public List<string> GrupoDemografico { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        public string GrupoDemografico { get; set; } // Lista de respuestas seleccionadas (checkbox)
 
         // Pregunta 3: ¿Dónde se encuentra tu cliente?
         public string UbicacionCliente { get; set; } // Almacena la respuesta seleccionada
 
         // Pregunta 4: ¿Qué características tiene tu cliente ideal?
-        public List<string> CaracteristicasCliente { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        public string CaracteristicasCliente { get; set; } // Lista de respuestas seleccionadas (checkbox)
 
         // Pregunta 5: ¿Qué tan bien conoces a tu cliente?
         public string ConocimientoCliente { get; set; } // Almacena la respuesta seleccionada
@@ -23,7 +23,7 @@
         public string EnfoqueProducto { get; set; } // Almacena la respuesta seleccionada
 
         // Pregunta 7: ¿Qué necesidades o deseos principales tiene tu cliente?
-        public List<string> NecesidadesCliente { get; set; } // Lista de respuestas seleccionadas (checkbox)
+        public string NecesidadesCliente { get; set; } // Lista de respuestas seleccionadas (checkbox)
     }
 
 }
