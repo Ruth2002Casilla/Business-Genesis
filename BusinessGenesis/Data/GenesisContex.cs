@@ -35,24 +35,16 @@ namespace BusinessGenesis.Data
                 entity.ToTable("ActividadesClaves");
 
                 entity.Property(p => p.ActividadesEsenciales)
-                    .HasConversion(
-                        v => string.Join(",", v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.ActividadesQueApoyanPropuesta)
-                    .HasConversion(
-                        v => string.Join(",", v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.ActividadesQueRealizoYDelego)
-                    .HasConversion(
-                        v => string.Join(",", v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.ActividadesParaAutomatizar)
-                    .HasConversion(
-                        v => string.Join(",", v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.FrecuenciaDeActividades)
                     .HasMaxLength(100);
@@ -68,20 +60,11 @@ namespace BusinessGenesis.Data
                 entity.Property(e => e.GestiónDeRelacionesConSocios).HasMaxLength(100);
 
                 // Para las listas de respuestas tipo checkbox, utilizamos la conversión a cadena separada por comas
-                entity.Property(e => e.TipoDeSocios).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.TipoDeSocios).HasMaxLength(100);
 
-                entity.Property(e => e.FuncionesDeAliados).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.FuncionesDeAliados).HasMaxLength(100);
 
-                entity.Property(e => e.CriteriosDeSelecciónDeSocios).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.CriteriosDeSelecciónDeSocios).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Canales>(entity =>
@@ -90,28 +73,20 @@ namespace BusinessGenesis.Data
 
                 // Convertir las listas a cadenas separadas por comas para almacenarlas en la base de datos
                 entity.Property(p => p.CanalesDeEntrada)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de canales de entrada a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.CanalesDeCompra)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de canales de compra a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.CanalesDeEntrega)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de canales de entrega a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.EficienciaCanales).HasMaxLength(100); // Almacena la eficiencia de los canales
                 entity.Property(p => p.CanalPreferido).HasMaxLength(100); // Almacena el canal preferido
                 entity.Property(p => p.EficienciaCanales).HasMaxLength(100); // Almacena la eficiencia de los canales
 
                 entity.Property(p => p.EtapasCubiertas)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir las etapas cubiertas a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<EstructuraDeCostos>(entity =>
@@ -119,25 +94,13 @@ namespace BusinessGenesis.Data
                 entity.Property(e => e.ImportanciaDelControlDeCostos).HasMaxLength(100);
                 entity.Property(e => e.EstimacionDeCrecimientoDeCostos).HasMaxLength(100);
 
-                entity.Property(e => e.CostosEsenciales).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.CostosEsenciales).HasMaxLength(100);
 
-                entity.Property(e => e.CostosFijos).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.CostosFijos).HasMaxLength(100);
 
-                entity.Property(e => e.CostosVariables).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.CostosVariables).HasMaxLength(100);
 
-                entity.Property(e => e.EstrategiasDeReduccionDeCostos).HasConversion(
-                    v => string.Join(",", v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+                entity.Property(e => e.EstrategiasDeReduccionDeCostos).HasMaxLength(100);
             });
 
             modelBuilder.Entity<FuenteDeIngresos>(entity =>
@@ -146,14 +109,10 @@ namespace BusinessGenesis.Data
 
                 // Convertir las listas a cadenas separadas por comas para almacenarlas en la base de datos
                 entity.Property(p => p.MetodoGeneracionIngresos)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de métodos de generación de ingresos a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.MetodoPagoClientes)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de métodos de pago de clientes a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.TipoIngreso).HasMaxLength(100); // Almacena el tipo de ingreso (radio)
                 entity.Property(p => p.IngresosVsCostos).HasMaxLength(100); // Almacena los ingresos vs costos (radio)
@@ -180,9 +139,7 @@ namespace BusinessGenesis.Data
 
                 // Definimos que los beneficios principales se almacenan como un campo con un tipo adecuado
                 entity.Property(p => p.BeneficiosPrincipales)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista a una cadena separada por comas para almacenar en la base de datos
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena almacenada en la base de datos de vuelta a lista de strings
+                    .HasMaxLength(100);
 
                 // Configuración para las otras propiedades
                 entity.Property(p => p.ProblemaResuelto).HasMaxLength(200);
@@ -197,29 +154,19 @@ namespace BusinessGenesis.Data
 
                 // Convertir las listas a cadenas separadas por comas para almacenarlas en la base de datos
                 entity.Property(p => p.TipoDeRecursosNecesarios)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de recursos necesarios a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.RecursosQueYaCuentas)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de recursos que ya cuentas a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.RecursosEsenciales)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de recursos esenciales a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.RecursosCostosos)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de recursos costosos a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.ComoOptimizarRecursos)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de optimización de recursos a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.AprovechamientoDeRecursos).HasMaxLength(100); // Almacenar el aprovechamiento de los recursos (radio)
             });
@@ -230,14 +177,10 @@ namespace BusinessGenesis.Data
 
                 // Convertir las listas a cadenas separadas por comas para almacenarlas en la base de datos
                 entity.Property(p => p.TipoRelacionEsperada)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de relaciones esperadas a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.MantenimientoClientes)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de mantenimiento de clientes a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.MotivoRecompra).HasMaxLength(100); // Almacena el motivo de recompra (radio)
                 entity.Property(p => p.GestionRelacionCliente).HasMaxLength(100); // Almacena la gestión de la relación con el cliente
@@ -250,19 +193,13 @@ namespace BusinessGenesis.Data
 
                 // Convertir las listas a cadenas separadas por comas para almacenarlas en la base de datos
                 entity.Property(p => p.GrupoDemografico)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de respuestas a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.CaracteristicasCliente)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de características a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 entity.Property(p => p.NecesidadesCliente)
-                    .HasConversion(
-                        v => string.Join(",", v), // Convertir la lista de necesidades a una cadena
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()); // Convertir la cadena de vuelta a lista
+                    .HasMaxLength(100);
 
                 // Configuración para las otras propiedades
                 entity.Property(p => p.ClientePrincipal).HasMaxLength(100);
