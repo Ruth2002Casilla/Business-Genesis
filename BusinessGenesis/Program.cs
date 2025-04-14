@@ -1,10 +1,16 @@
 using BusinessGenesis.Components;
+using BusinessGenesis.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents();
+
+builder.Services.AddDbContext<GenesisContex>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("ConStr")));
+
 
 var app = builder.Build();
 
