@@ -7,7 +7,7 @@
 namespace BusinessGenesis.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class TbGenesis : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -199,6 +199,20 @@ namespace BusinessGenesis.Migrations
                     table.PrimaryKey("PK_SegmentoCliente", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TipoProductos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    idNegocio = table.Column<int>(type: "INTEGER", nullable: false),
+                    nombre = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoProductos", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Negocio",
                 columns: new[] { "Id", "TipoDeNegocio" },
@@ -252,6 +266,9 @@ namespace BusinessGenesis.Migrations
 
             migrationBuilder.DropTable(
                 name: "SegmentoCliente");
+
+            migrationBuilder.DropTable(
+                name: "TipoProductos");
         }
     }
 }

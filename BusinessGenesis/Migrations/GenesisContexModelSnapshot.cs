@@ -461,6 +461,23 @@ namespace BusinessGenesis.Migrations
 
                     b.ToTable("SegmentoCliente", (string)null);
                 });
+
+            modelBuilder.Entity("BusinessGenesis.Models.TipoProducto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("idNegocio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoProductos");
+                });
 #pragma warning restore 612, 618
         }
     }

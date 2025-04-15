@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessGenesis.Migrations
 {
     [DbContext(typeof(GenesisContex))]
-    [Migration("20250413032347_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250415032632_TbGenesis")]
+    partial class TbGenesis
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -463,6 +463,23 @@ namespace BusinessGenesis.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SegmentoCliente", (string)null);
+                });
+
+            modelBuilder.Entity("BusinessGenesis.Models.TipoProducto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("idNegocio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoProductos");
                 });
 #pragma warning restore 612, 618
         }
