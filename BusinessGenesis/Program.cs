@@ -1,5 +1,6 @@
 using BusinessGenesis.Components;
-using BusinessGenesis.Data;
+using BusinessGenesis.DAL;
+using BusinessGenesis.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,20 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddDbContext<GenesisContex>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("ConStr")));
+
+builder.Services.AddScoped<ActividadesClavesServices>();
+builder.Services.AddScoped<AliadosClaveService>();
+builder.Services.AddScoped<CanalServices>();
+builder.Services.AddScoped<EmpresaServices>();
+builder.Services.AddScoped<EstructuraDeCostoServices>();
+builder.Services.AddScoped<FuenteDeIngresoServices>();
+builder.Services.AddScoped<NegocioServices>();
+builder.Services.AddScoped<PropuestaValorServices>();
+builder.Services.AddScoped<RecursosClaveServices>();
+builder.Services.AddScoped<RelacionConClienteServices>();
+builder.Services.AddScoped<SegmentoClienteServices>();
+builder.Services.AddScoped<TipoProductoServices>();
+
 
 
 var app = builder.Build();

@@ -1,0 +1,1468 @@
+﻿@page "/customer"
+
+@inject ActividadesClavesServices actividadesClaveService
+@inject AliadosClaveService aliadosClaveService
+@inject CanalServices canalService
+@inject EmpresaServices empresaService
+@inject EstructuraDeCostoServices estructuraService
+@inject FuenteDeIngresoServices fuenteIngresoService
+@inject NegocioServices negocioService
+@inject PropuestaValorServices propuestaValorService
+@inject RecursosClaveServices recursoClaveService
+@inject RelacionConClienteServices relacionClienteService
+@inject SegmentoClienteServices segmentoClienteService
+@inject TipoProductoServices productoService
+
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">Nombre de la Empresa</h3>
+        <input type="text" class="form-control" placeholder="Escribe aquí" />
+
+
+        <!-Agrega los productos segun el negocio-!></!-Agrega>
+
+        <h3 class="text-primary mb-4">¿Qué problema principal resuelve tu producto o servicio?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="tiempo" />
+            <label class="form-check-label" for="tiempo">⏳ Ahorro de tiempo</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costos" />
+            <label class="form-check-label" for="costos">💰 Reducción de costos</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="comodidad" />
+            <label class="form-check-label" for="comodidad">🛋️ Comodidad o simplicidad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="calidad" />
+            <label class="form-check-label" for="calidad">🌟 Mejora en la calidad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="acceso" />
+            <label class="form-check-label" for="acceso">🔓 Acceso a algo nuevo</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="riesgos" />
+            <label class="form-check-label" for="riesgos">🛡️ Reducción de riesgos</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué beneficios principales ofrece tu producto al cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="facilidad" />
+            <label class="form-check-label" for="facilidad">🧩 Facilidad de uso</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="eficiencia" />
+            <label class="form-check-label" for="eficiencia">⚡ Eficiencia</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="estilo" />
+            <label class="form-check-label" for="estilo">🎨 Estilo o diseño atractivo</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="personalizacion" />
+            <label class="form-check-label" for="personalizacion">🛠️ Personalización</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="confiabilidad" />
+            <label class="form-check-label" for="confiabilidad">🔒 Confiabilidad</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="innovacion" />
+            <label class="form-check-label" for="innovacion">🚀 Innovación</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tu propuesta de valor se basa en algo que tus competidores no ofrecen?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="unica" name="valorCompetencia" />
+            <label class="form-check-label" for="unica">🌟 Sí, es totalmente única</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="mejor" name="valorCompetencia" />
+            <label class="form-check-label" for="mejor">🚀 Es mejor que lo existente</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="economica" name="valorCompetencia" />
+            <label class="form-check-label" for="economica">💲 Es similar pero más económica</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="igual" name="valorCompetencia" />
+            <label class="form-check-label" for="igual">⚖️ No, es igual a lo que ya existe</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo se entrega el valor al cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="producto" name="entregaValor" />
+            <label class="form-check-label" for="producto">📦 Producto físico</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="servicio" name="entregaValor" />
+            <label class="form-check-label" for="servicio">🙋‍♂️ Servicio personalizado</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="plataforma" name="entregaValor" />
+            <label class="form-check-label" for="plataforma">💻 Plataforma digital</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="suscripcion" name="entregaValor" />
+            <label class="form-check-label" for="suscripcion">📬 Suscripción</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="demanda" name="entregaValor" />
+            <label class="form-check-label" for="demanda">📲 Acceso bajo demanda</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan grande es el problema que estás resolviendo para tu cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="muyGrande" name="tamanioProblema" />
+            <label class="form-check-label" for="muyGrande">🔥 Muy grande (les causa pérdidas o frustración real)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="moderado" name="tamanioProblema" />
+            <label class="form-check-label" for="moderado">⚖️ Moderado (importante, pero manejable)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="pequeno" name="tamanioProblema" />
+            <label class="form-check-label" for="pequeno">💤 Pequeño (molestia leve)</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="noProblema" name="tamanioProblema" />
+            <label class="form-check-label" for="noProblema">🙅 No es un problema real</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Quién es tu cliente principal o usuario objetivo?</h3>
+
+        <select class="form-select mb-3">
+            <option selected disabled>Selecciona una opción</option>
+            <option>👤 Consumidores finales (B2C)</option>
+            <option>🏢 Negocios o empresas (B2B)</option>
+            <option>🏛️ Gobierno o instituciones públicas</option>
+            <option>🤝 Organizaciones sin fines de lucro</option>
+            <option>🔍 Otro tipo de entidad</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿A qué grupo demográfico pertenece tu cliente?</h3>
+
+        <select class="form-select mb-3">
+            <option selected disabled>Selecciona un grupo</option>
+            <option>🧑‍🎓 Jóvenes (15-25 años)</option>
+            <option>🧑 Adultos (26-45 años)</option>
+            <option>👴 Mayores de 45 años</option>
+            <option>👨 Hombres</option>
+            <option>👩 Mujeres</option>
+            <option>👨‍👩‍👧 Familias</option>
+            <option>💼 Profesionales</option>
+            <option>🎓 Estudiantes</option>
+            <option>🏦 Empresarios</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Dónde se encuentra tu cliente?</h3>
+
+        <select class="form-select mb-3">
+            <option selected disabled>Selecciona una ubicación</option>
+            <option>🏘️ Local (mi ciudad o comunidad)</option>
+            <option>🌐 Regional (mi provincia o estado)</option>
+            <option>🇲🇽 Nacional (todo el país)</option>
+            <option>🌍 Internacional (otros países)</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué características tiene tu cliente ideal?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="tecnologia" />
+            <label class="form-check-label" for="tecnologia">💻 Tiene acceso frecuente a tecnología</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="ingresos" />
+            <label class="form-check-label" for="ingresos">💰 Tiene ingresos medios o altos</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="necesidades" />
+            <label class="form-check-label" for="necesidades">🧩 Tiene necesidades específicas no cubiertas</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="rapidez" />
+            <label class="form-check-label" for="rapidez">⚡ Busca conveniencia y rapidez</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="disenio" />
+            <label class="form-check-label" for="disenio">🎨 Valora el diseño y la estética</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="calidad" />
+            <label class="form-check-label" for="calidad">🔝 Está dispuesto a pagar más por calidad</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan bien conoces a tu cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="muyBien" name="conocimientoCliente" />
+            <label class="form-check-label" for="muyBien">🔍 Muy bien (he investigado y validado)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="maso" name="conocimientoCliente" />
+            <label class="form-check-label" for="maso">📊 Más o menos (tengo una idea general)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" id="poco" name="conocimientoCliente" />
+            <label class="form-check-label" for="poco">🔎 Poco (basado en suposiciones)</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="nada" name="conocimientoCliente" />
+            <label class="form-check-label" for="nada">❌ Nada (no lo he definido aún)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tu producto o servicio se enfoca en...?</h3>
+
+        <select class="form-select mb-3">
+            <option selected disabled>Selecciona una opción</option>
+            <option>🎯 Un nicho muy específico</option>
+            <option>🌍 Un mercado masivo</option>
+            <option>🔀 Un segmento dividido (por ejemplo, dos perfiles distintos)</option>
+            <option>📈 Un mercado emergente</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué necesidades o deseos principales tiene tu cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="ahorrarDinero" />
+            <label class="form-check-label" for="ahorrarDinero">💸 Ahorrar dinero</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="ahorrarTiempo" />
+            <label class="form-check-label" for="ahorrarTiempo">⏳ Ahorrar tiempo</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="accederServicios" />
+            <label class="form-check-label" for="accederServicios">🧰 Acceder a servicios que no tiene</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="mejorarEstiloVida" />
+            <label class="form-check-label" for="mejorarEstiloVida">🌟 Mejorar su estilo de vida</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sentirseSeguro" />
+            <label class="form-check-label" for="sentirseSeguro">🔒 Sentirse seguro o en control</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="divertirse" />
+            <label class="form-check-label" for="divertirse">🎉 Divertirse o entretenerse</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo se enteran tus clientes de tu producto o servicio?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="redesSociales" />
+            <label class="form-check-label" for="redesSociales">📱 Redes sociales (Instagram, Facebook, TikTok, etc.)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="publicidadPagada" />
+            <label class="form-check-label" for="publicidadPagada">💵 Publicidad pagada (Google Ads, Facebook Ads)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="bocaBoca" />
+            <label class="form-check-label" for="bocaBoca">🗣️ Boca a boca / recomendaciones</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="busquedaGoogle" />
+            <label class="form-check-label" for="busquedaGoogle">🔍 Búsqueda en Google / SEO</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="influencers" />
+            <label class="form-check-label" for="influencers">🎤 Influencers o creadores de contenido</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="eventos" />
+            <label class="form-check-label" for="eventos">🎪 Eventos o ferias</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="otrosCanales" />
+            <label class="form-check-label" for="otrosCanales">📧 Otros canales digitales (correo, blogs)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Dónde compran o adquieren tu producto?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="tiendaFisica" />
+            <label class="form-check-label" for="tiendaFisica">🏬 Tienda física</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="paginaWeb" />
+            <label class="form-check-label" for="paginaWeb">🌐 Página web propia</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="marketplace" />
+            <label class="form-check-label" for="marketplace">🛍️ Marketplace (Amazon, Etsy, etc.)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="redesVenta" />
+            <label class="form-check-label" for="redesVenta">📱 Redes sociales (venta directa por WhatsApp, IG, etc.)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="appMovil" />
+            <label class="form-check-label" for="appMovil">📲 Aplicación móvil</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="telefonoCorreo" />
+            <label class="form-check-label" for="telefonoCorreo">📞 Por teléfono o correo</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="distribuidores" />
+            <label class="form-check-label" for="distribuidores">🤝 A través de distribuidores o socios</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo entregas tu producto o servicio al cliente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="envioDomicilio" />
+            <label class="form-check-label" for="envioDomicilio">🚚 Envío a domicilio</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="descargaDigital" />
+            <label class="form-check-label" for="descargaDigital">💾 Descarga digital (software, app, contenido)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="entregaFisica" />
+            <label class="form-check-label" for="entregaFisica">🏪 Entrega en tienda física</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="servicioDomicilio" />
+            <label class="form-check-label" for="servicioDomicilio">👷‍♂️ Servicio a domicilio (por personal)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="accesoEnLinea" />
+            <label class="form-check-label" for="accesoEnLinea">💻 Acceso en línea (plataforma, membresía)</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="tercerosDistribuidores" />
+            <label class="form-check-label" for="tercerosDistribuidores">📦 Por medio de terceros o distribuidores</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué canal prefieren tus clientes?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="canalPreferido" id="canalDigital" />
+            <label class="form-check-label" for="canalDigital">📱 Digital (web, app, redes)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="canalPreferido" id="canalPresencial" />
+            <label class="form-check-label" for="canalPresencial">🏢 Presencial (tienda o punto físico)</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="canalPreferido" id="canalMixto" />
+            <label class="form-check-label" for="canalMixto">🔄 Mixto (ambos)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan eficientes son tus canales actuales?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="eficienciaCanales" id="muyEficientes" />
+            <label class="form-check-label" for="muyEficientes">⚡ Muy eficientes (rápidos y económicos)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="eficienciaCanales" id="eficientesPero" />
+            <label class="form-check-label" for="eficientesPero">👌 Eficientes, pero podrían mejorar</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="eficienciaCanales" id="pocoEficientes" />
+            <label class="form-check-label" for="pocoEficientes">🐢 Poco eficientes (lentos o costosos)</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="eficienciaCanales" id="noDefinidos" />
+            <label class="form-check-label" for="noDefinidos">❓ Aún no tengo canales definidos</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué etapa cubren tus canales actualmente?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="conciencia" />
+            <label class="form-check-label" for="conciencia">📣 Conciencia: cómo se enteran de ti</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="evaluacion" />
+            <label class="form-check-label" for="evaluacion">🔍 Evaluación: cómo comparan tu solución con otras</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="compra" />
+            <label class="form-check-label" for="compra">🛒 Compra: cómo adquieren tu producto</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="entrega" />
+            <label class="form-check-label" for="entrega">📦 Entrega: cómo reciben lo que ofreces</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="postventa" />
+            <label class="form-check-label" for="postventa">💬 Postventa: soporte o contacto después de la compra</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tipo de relación espera tu cliente tener contigo?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atencionPersonalizada" />
+            <label class="form-check-label" for="atencionPersonalizada">👥 Atención personalizada</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="autoservicio" />
+            <label class="form-check-label" for="autoservicio">🧑‍💻 Autoservicio (el cliente hace todo solo)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="asistenciaAutomatizada" />
+            <label class="form-check-label" for="asistenciaAutomatizada">🤖 Asistencia automatizada (chatbots, FAQs)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="comunidadUsuarios" />
+            <label class="form-check-label" for="comunidadUsuarios">🌐 Comunidad o red de usuarios</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="interaccionConstante" />
+            <label class="form-check-label" for="interaccionConstante">🔄 Interacción humana constante</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="relacionLargoPlazo" />
+            <label class="form-check-label" for="relacionLargoPlazo">🎯 Relación a largo plazo (programas de fidelidad)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo planeas mantener a tus clientes actuales?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atencionCalidad" />
+            <label class="form-check-label" for="atencionCalidad">💬 Atención rápida y de calidad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="seguimientoPostventa" />
+            <label class="form-check-label" for="seguimientoPostventa">🔄 Seguimiento post-venta</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="comunicacionConstante" />
+            <label class="form-check-label" for="comunicacionConstante">📧 Comunicación constante (correo, redes)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="programasLealtad" />
+            <label class="form-check-label" for="programasLealtad">🎁 Programas de puntos o lealtad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="servicioPersonalizado" />
+            <label class="form-check-label" for="servicioPersonalizado">🧑‍💼 Servicio personalizado según historial</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="actualizacionesMejoras" />
+            <label class="form-check-label" for="actualizacionesMejoras">🚀 Actualizaciones o mejoras continuas</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Por qué tus clientes volverían a comprarte?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="calidadProducto" />
+            <label class="form-check-label" for="calidadProducto">🏆 Por la calidad del producto o servicio</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="buenTrato" />
+            <label class="form-check-label" for="buenTrato">🤝 Por el buen trato y atención recibida</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="promociones" />
+            <label class="form-check-label" for="promociones">💸 Por promociones frecuentes</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="resuelveNecesidad" />
+            <label class="form-check-label" for="resuelveNecesidad">🎯 Porque resuelvo exactamente su necesidad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="habito" />
+            <label class="form-check-label" for="habito">🔁 Porque es parte de su rutina o hábito</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="motivoRecompra" id="noVolverian" />
+            <label class="form-check-label" for="noVolverian">🚫 No volverían (es una compra única)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo gestionas la relación con tus clientes actualmente?</h3>
+
+        <select class="form-select mb-3" id="gestionClientes">
+            <option selected disabled>Selecciona una opción</option>
+            <option>📱 Directamente por redes o WhatsApp</option>
+            <option>🧠 A través de un sistema automatizado (CRM)</option>
+            <option>📝 Manualmente (notas, Excel, contactos sueltos)</option>
+            <option>❓ No tengo un sistema definido aún</option>
+        </select>
+        
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan importante es para tu negocio tener una relación cercana con tus clientes?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="relacionCliente" id="muyImportante" />
+            <label class="form-check-label" for="muyImportante">🔑 Muy importante (es clave para crecer)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="relacionCliente" id="importantePeroNoPrioridad" />
+            <label class="form-check-label" for="importantePeroNoPrioridad">🔘 Importante, pero no es prioridad</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="relacionCliente" id="pocoImportante" />
+            <label class="form-check-label" for="pocoImportante">❌ Poco importante (el producto se vende solo)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="relacionCliente" id="noConsiderado" />
+            <label class="form-check-label" for="noConsiderado">🔍 No lo he considerado aún</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿De qué manera vas a generar ingresos?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="ventaDirecta" />
+            <label class="form-check-label" for="ventaDirecta">💰 Venta directa de productos</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="suscripciones" />
+            <label class="form-check-label" for="suscripciones">🔄 Suscripciones o membresías</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="serviciosContrato" />
+            <label class="form-check-label" for="serviciosContrato">📅 Servicios por contrato o por hora</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="publicidad" />
+            <label class="form-check-label" for="publicidad">📢 Publicidad o patrocinios</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="comisiones" />
+            <label class="form-check-label" for="comisiones">💼 Comisiones por intermediación</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="licencias" />
+            <label class="form-check-label" for="licencias">💻 Licencias o software</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="donaciones" />
+            <label class="form-check-label" for="donaciones">💸 Donaciones o crowdfunding</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="otraFuente" />
+            <label class="form-check-label" for="otraFuente">🛠 Otra fuente (general)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo pagan los clientes?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="pagoUnico" />
+            <label class="form-check-label" for="pagoUnico">💵 Pago único (al momento de comprar)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="pagosRecurrentes" />
+            <label class="form-check-label" for="pagosRecurrentes">🔁 Pagos recurrentes (mensuales, anuales)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="pagoPorUso" />
+            <label class="form-check-label" for="pagoPorUso">💳 Pago por uso (cada vez que lo utilizan)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="modelosFreemium" />
+            <label class="form-check-label" for="modelosFreemium">🔓 Modelos freemium (gratis con opción paga)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="porAdelantado" />
+            <label class="form-check-label" for="porAdelantado">💰 Por adelantado</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="contraEntrega" />
+            <label class="form-check-label" for="contraEntrega">📦 Contra entrega</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tus ingresos son constantes o variables?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosConstantesVariables" id="constantes" />
+            <label class="form-check-label" for="constantes">📊 Constantes (mismo ingreso mensual promedio)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosConstantesVariables" id="variables" />
+            <label class="form-check-label" for="variables">📈 Variables (dependen de la temporada o ventas)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosConstantesVariables" id="sinIngresos" />
+            <label class="form-check-label" for="sinIngresos">❓ Aún no tengo ingresos</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosConstantesVariables" id="noSeguro" />
+            <label class="form-check-label" for="noSeguro">🤔 No estoy seguro</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tus ingresos actuales o proyectados cubren tus costos?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosCubrenCostos" id="ganancia" />
+            <label class="form-check-label" for="ganancia">💵 Sí, tengo ganancia</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosCubrenCostos" id="apenasCubren" />
+            <label class="form-check-label" for="apenasCubren">⚖️ Apenas cubren los costos</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosCubrenCostos" id="enPerdida" />
+            <label class="form-check-label" for="enPerdida">❌ No, estoy en pérdida</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="ingresosCubrenCostos" id="necesitoCalcular" />
+            <label class="form-check-label" for="necesitoCalcular">🧮 Aún no sé, necesito calcularlo</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan dispuesto está tu cliente a pagar por tu solución?</h3>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="disposicionPagar" id="muyDispuesto" />
+            <label class="form-check-label" for="muyDispuesto">💎 Muy dispuesto (lo consideran valioso)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="disposicionPagar" id="dispuestoBajoPrecio" />
+            <label class="form-check-label" for="dispuestoBajoPrecio">💸 Dispuesto solo si el precio es bajo</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="disposicionPagar" id="pocoDispuesto" />
+            <label class="form-check-label" for="pocoDispuesto">❗ Poco dispuesto (lo ve como un gasto)</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="disposicionPagar" id="noDispuesto" />
+            <label class="form-check-label" for="noDispuesto">❌ No está dispuesto a pagar</label>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="disposicionPagar" id="desconocido" />
+            <label class="form-check-label" for="desconocido">🔍 No estoy seguro</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cuál será tu fuente principal de ingresos?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="fuenteIngresos" id="productos" />
+            <label class="form-check-label" for="productos">📦 Productos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="fuenteIngresos" id="servicios" />
+            <label class="form-check-label" for="servicios">💼 Servicios</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="fuenteIngresos" id="suscripciones" />
+            <label class="form-check-label" for="suscripciones">🔑 Suscripciones</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="fuenteIngresos" id="publicidad" />
+            <label class="form-check-label" for="publicidad">📢 Publicidad</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="fuenteIngresos" id="otro" />
+            <label class="form-check-label" for="otro">📝 Otro</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tipo de recursos necesitas para que tu negocio funcione?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="humanos" />
+            <label class="form-check-label" for="humanos">👥 Humanos (personal, socios, colaboradores)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="fisicos" />
+            <label class="form-check-label" for="fisicos">🏢 Físicos (local, maquinaria, vehículos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="financieros" />
+            <label class="form-check-label" for="financieros">💰 Financieros (capital, préstamos, ingresos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="intelectuales" />
+            <label class="form-check-label" for="intelectuales">📚 Intelectuales (marca, patente, conocimiento)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="tecnologicos" />
+            <label class="form-check-label" for="tecnologicos">💻 Tecnológicos (software, plataformas, redes)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="digitales" />
+            <label class="form-check-label" for="digitales">🌐 Recursos digitales (redes sociales, páginas, apps)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Con cuáles de estos recursos ya cuentas?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="capital" />
+            <label class="form-check-label" for="capital">💵 Capital inicial o inversión</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="equipoHumano" />
+            <label class="form-check-label" for="equipoHumano">👥 Equipo humano necesario</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="espacioFisico" />
+            <label class="form-check-label" for="espacioFisico">🏢 Espacio físico adecuado</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="conocimientoTecnico" />
+            <label class="form-check-label" for="conocimientoTecnico">🎓 Conocimiento técnico o especializado</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="presenciaDigital" />
+            <label class="form-check-label" for="presenciaDigital">📱 Presencia digital (redes, sitio web)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="herramientasTecnologicas" />
+            <label class="form-check-label" for="herramientasTecnologicas">💻 Herramientas tecnológicas (equipos, software)</label>
+        </div>
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cuál será tu fuente principal de ingresos?</h3>
+        <select class="form-select" name="fuenteIngresos" aria-label="Fuente principal de ingresos">
+            <option value="productos">Productos</option>
+            <option value="servicios">Servicios</option>
+            <option value="suscripciones">Suscripciones</option>
+            <option value="publicidad">Publicidad</option>
+            <option value="otro">Otro</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tipo de recursos necesitas para que tu negocio funcione?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="humanos" />
+            <label class="form-check-label" for="humanos">👥 Humanos (personal, socios, colaboradores)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="fisicos" />
+            <label class="form-check-label" for="fisicos">🏢 Físicos (local, maquinaria, vehículos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="financieros" />
+            <label class="form-check-label" for="financieros">💵 Financieros (capital, préstamos, ingresos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="intelectuales" />
+            <label class="form-check-label" for="intelectuales">🧠 Intelectuales (marca, patente, conocimiento)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="tecnologicos" />
+            <label class="form-check-label" for="tecnologicos">💻 Tecnológicos (software, plataformas, redes)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosNecesarios" id="digitales" />
+            <label class="form-check-label" for="digitales">🌐 Recursos digitales (redes sociales, páginas, apps)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Con cuáles de estos recursos ya cuentas?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="capital" />
+            <label class="form-check-label" for="capital">💵 Capital inicial o inversión</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="equipoHumano" />
+            <label class="form-check-label" for="equipoHumano">👥 Equipo humano necesario</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="espacioFisico" />
+            <label class="form-check-label" for="espacioFisico">🏢 Espacio físico adecuado</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="conocimientoTecnico" />
+            <label class="form-check-label" for="conocimientoTecnico">🎓 Conocimiento técnico o especializado</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="presenciaDigital" />
+            <label class="form-check-label" for="presenciaDigital">📱 Presencia digital (redes, sitio web)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosDisponibles" id="herramientasTecnologicas" />
+            <label class="form-check-label" for="herramientasTecnologicas">💻 Herramientas tecnológicas (equipos, software)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué recursos son esenciales para tu propuesta de valor?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="productoCalidad" />
+            <label class="form-check-label" for="productoCalidad">🏅 Producto de calidad o diferenciado</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="servicioCliente" />
+            <label class="form-check-label" for="servicioCliente">💬 Servicio al cliente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="tecnologiaPlataforma" />
+            <label class="form-check-label" for="tecnologiaPlataforma">💻 Tecnología o plataforma</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="marcaReconocida" />
+            <label class="form-check-label" for="marcaReconocida">🔖 Marca reconocida</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="experienciaConocimiento" />
+            <label class="form-check-label" for="experienciaConocimiento">🎓 Experiencia y conocimiento del negocio</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosEsenciales" id="accesoClientesProveedores" />
+            <label class="form-check-label" for="accesoClientesProveedores">🔗 Acceso a clientes o proveedores clave</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cuáles de estos recursos son más costosos de mantener?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosCostosos" id="sueldosPersonal" />
+            <label class="form-check-label" for="sueldosPersonal">💼 Sueldos o personal</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosCostosos" id="alquilerLocal" />
+            <label class="form-check-label" for="alquilerLocal">🏢 Alquiler de local o espacio</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosCostosos" id="tecnologia" />
+            <label class="form-check-label" for="tecnologia">💻 Tecnología (mantenimiento, software, equipos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosCostosos" id="publicidadMarketing" />
+            <label class="form-check-label" for="publicidadMarketing">📣 Publicidad y marketing</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="recursosCostosos" id="logistica" />
+            <label class="form-check-label" for="logistica">🚚 Logística (transporte, entrega)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo podrías optimizar tus recursos actuales?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="reducirGastos" />
+            <label class="form-check-label" for="reducirGastos">💸 Reducir gastos innecesarios</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="usarTecnologia" />
+            <label class="form-check-label" for="usarTecnologia">🤖 Usar tecnología para automatizar</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="compartirRecursos" />
+            <label class="form-check-label" for="compartirRecursos">🤝 Compartir recursos con otros (coworking, equipos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="capacitarEquipo" />
+            <label class="form-check-label" for="capacitarEquipo">📚 Capacitar al equipo para ser más eficiente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="negociarPrecios" />
+            <label class="form-check-label" for="negociarPrecios">💼 Negociar mejores precios o condiciones</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="optimizarRecursos" id="delegarTareas" />
+            <label class="form-check-label" for="delegarTareas">👩‍💼 Delegar tareas no esenciales</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Estás aprovechando al máximo tus recursos disponibles?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="aprovecharRecursos" id="siEficiente" />
+            <label class="form-check-label" for="siEficiente">✔️ Sí, los uso de forma eficiente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="aprovecharRecursos" id="enParte" />
+            <label class="form-check-label" for="enParte">⚠️ En parte, pero hay margen de mejora</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="aprovecharRecursos" id="noAprovechado" />
+            <label class="form-check-label" for="noAprovechado">❌ No, podría aprovechar más recursos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="aprovecharRecursos" id="noClaroRecursos" />
+            <label class="form-check-label" for="noClaroRecursos">🤔 Aún no tengo claro cuáles son todos mis recursos</label>
+        </div>
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué actividades son esenciales para que tu negocio funcione?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="produccion" />
+            <label class="form-check-label" for="produccion">🏭 Producción (fabricar productos o preparar servicios)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atencionCliente" />
+            <label class="form-check-label" for="atencionCliente">💬 Atención al cliente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="marketing" />
+            <label class="form-check-label" for="marketing">📣 Marketing y ventas</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="gestionAdmin" />
+            <label class="form-check-label" for="gestionAdmin">📋 Gestión administrativa y contable</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="logistica" />
+            <label class="form-check-label" for="logistica">🚚 Entrega o logística</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="desarrolloTecnologico" />
+            <label class="form-check-label" for="desarrolloTecnologico">🧪 Desarrollo tecnológico o innovación</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="soporteTecnico" />
+            <label class="form-check-label" for="soporteTecnico">🛠️ Soporte técnico</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué actividades apoyan directamente tu propuesta de valor?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="mejorarProductos" />
+            <label class="form-check-label" for="mejorarProductos">🔧 Crear o mejorar productos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="capacitacion" />
+            <label class="form-check-label" for="capacitacion">📚 Capacitación continua del equipo</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="personalizacion" />
+            <label class="form-check-label" for="personalizacion">🎯 Personalización del servicio</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="calidadExperiencia" />
+            <label class="form-check-label" for="calidadExperiencia">🌟 Garantizar calidad o experiencia del cliente</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="contenidoComunidad" />
+            <label class="form-check-label" for="contenidoComunidad">🌐 Generar contenido o comunidad (redes, blog, etc.)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué actividades realizas tú mismo y cuáles delegas?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="produccionPropia" />
+            <label class="form-check-label" for="produccionPropia">🙋 Producción propia</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="delegoMarketing" />
+            <label class="form-check-label" for="delegoMarketing">📱 Delego el marketing o redes sociales</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="delegoContabilidad" />
+            <label class="form-check-label" for="delegoContabilidad">💼 Delego la contabilidad o finanzas</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atiendoCliente" />
+            <label class="form-check-label" for="atiendoCliente">📞 Atiendo personalmente al cliente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="serviciosExternos" />
+            <label class="form-check-label" for="serviciosExternos">🤝 Contrato servicios externos (freelancers, agencias)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="noDelego" />
+            <label class="form-check-label" for="noDelego">🔄 No delego nada, hago todo yo</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Con qué frecuencia realizas estas actividades clave?</h3>
+        <select class="form-select mb-4" name="frecuenciaActividades">
+            <option selected disabled>Selecciona una opción</option>
+            <option value="diario">📅 A diario</option>
+            <option value="semanal">🗓️ Semanalmente</option>
+            <option value="mensual">🗓️ Mensualmente</option>
+            <option value="cuandoNecesario">⏱️ Solo cuando es necesario</option>
+            <option value="noComenzado">❌ Aún no las he comenzado</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué actividades podrías automatizar o hacer más eficientes?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="registroVentas" />
+            <label class="form-check-label" for="registroVentas">📈 Registro de ventas o inventario</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atencionBots" />
+            <label class="form-check-label" for="atencionBots">🤖 Atención al cliente con bots o plantillas</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="agendamiento" />
+            <label class="form-check-label" for="agendamiento">📅 Agendamiento de citas o pedidos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="marketingRedes" />
+            <label class="form-check-label" for="marketingRedes">📲 Marketing en redes (post programados)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="envioFacturas" />
+            <label class="form-check-label" for="envioFacturas">🧾 Envío de facturas o cotizaciones</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tu negocio depende de alguna actividad crítica externa (proveedores, aliados, etc.)?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependenciaExterna" id="total" />
+            <label class="form-check-label" for="total">✅ Sí, totalmente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependenciaExterna" id="parcial" />
+            <label class="form-check-label" for="parcial">🌓 En parte, pero tengo alternativas</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependenciaExterna" id="noInterno" />
+            <label class="form-check-label" for="noInterno">🔒 No, manejo todo internamente</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="dependenciaExterna" id="noEvaluado" />
+            <label class="form-check-label" for="noEvaluado">❓ No lo he evaluado aún</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Con qué tipo de socios o aliados necesitas colaborar para que tu negocio funcione?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="proveedores" />
+            <label class="form-check-label" for="proveedores">📦 Proveedores de materiales o productos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sociosFinancieros" />
+            <label class="form-check-label" for="sociosFinancieros">💰 Socios financieros (inversionistas, préstamos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sociosTecnologicos" />
+            <label class="form-check-label" for="sociosTecnologicos">💻 Socios tecnológicos (desarrolladores, plataformas)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sociosComerciales" />
+            <label class="form-check-label" for="sociosComerciales">🤝 Socios comerciales (distribuidores, afiliados)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sociosMarketing" />
+            <label class="form-check-label" for="sociosMarketing">📣 Socios de marketing (agencias, influencers)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="sociosLogisticos" />
+            <label class="form-check-label" for="sociosLogisticos">🚚 Socios logísticos (transportistas, almacenes)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="sociosEstrategicos" />
+            <label class="form-check-label" for="sociosEstrategicos">🎯 Socios estratégicos (alianzas, joint ventures)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué funciones o actividades dependen de estos aliados?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="produccion" />
+            <label class="form-check-label" for="produccion">🏭 Producción o fabricación de productos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="marketingPublicidad" />
+            <label class="form-check-label" for="marketingPublicidad">📢 Marketing y publicidad</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="proveerTecnologia" />
+            <label class="form-check-label" for="proveerTecnologia">🖥️ Proveer tecnología (software, plataformas)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="cadenaSuministro" />
+            <label class="form-check-label" for="cadenaSuministro">🔗 Gestión de la cadena de suministro</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="atencionCliente" />
+            <label class="form-check-label" for="atencionCliente">💬 Servicios de atención al cliente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="innovacion" />
+            <label class="form-check-label" for="innovacion">🧪 Investigación y desarrollo (innovación)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="financiamiento" />
+            <label class="form-check-label" for="financiamiento">💸 Financiamiento o inversión</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo eliges a tus socios o aliados?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="experiencia" />
+            <label class="form-check-label" for="experiencia">🎓 Por su experiencia en el sector</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="reputacion" />
+            <label class="form-check-label" for="reputacion">🌟 Por su reputación o fiabilidad</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costo" />
+            <label class="form-check-label" for="costo">💲 Por el costo de sus servicios</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="valoresCompatibles" />
+            <label class="form-check-label" for="valoresCompatibles">❤️ Por la compatibilidad con los valores de mi negocio</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="redContactos" />
+            <label class="form-check-label" for="redContactos">📡 Por su red de contactos o influencia</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="sinCriterios" />
+            <label class="form-check-label" for="sinCriterios">🤷‍♂️ No tengo criterios específicos, elijo según necesidades</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan dependiente es tu negocio de estos socios clave?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependencia" id="muyDependiente" />
+            <label class="form-check-label" for="muyDependiente">🔒 Muy dependiente (sin ellos no podría operar)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependencia" id="moderadamente" />
+            <label class="form-check-label" for="moderadamente">⚖️ Moderadamente dependiente (son importantes, pero tengo alternativas)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="dependencia" id="pocoDependiente" />
+            <label class="form-check-label" for="pocoDependiente">💡 Poco dependiente (puedo operar sin ellos)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="dependencia" id="noDependo" />
+            <label class="form-check-label" for="noDependo">🚀 No dependo de nadie en particular</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Tus socios actuales están bien alineados con tus objetivos de negocio?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="alineacion" id="todosAlineados" />
+            <label class="form-check-label" for="todosAlineados">✅ Sí, todos están muy alineados con mi visión</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="alineacion" id="algunosAlineados" />
+            <label class="form-check-label" for="algunosAlineados">⚠️ Algunos están alineados, pero otros no tanto</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="alineacion" id="noAlineados" />
+            <label class="form-check-label" for="noAlineados">❌ No, necesito buscar nuevos socios más estratégicos</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="alineacion" id="noTengoSocios" />
+            <label class="form-check-label" for="noTengoSocios">🔍 Aún no tengo socios, estoy buscando</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo gestionas la relación con tus socios clave?</h3>
+        <select class="form-select mb-4">
+            <option selected disabled>Selecciona una opción</option>
+            <option>📃 A través de acuerdos formales (contratos, SLA)</option>
+            <option>🗣️ Relaciones informales, con buena comunicación</option>
+            <option>💻 Usamos herramientas digitales (CRM, gestión de proyectos)</option>
+            <option>❓ No tengo un sistema de gestión claro</option>
+        </select>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cuáles de estos costos son esenciales para operar tu negocio?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosProduccion" />
+            <label class="form-check-label" for="costosProduccion">🏗️ Costos de producción (materias primas, fabricación)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosLaborales" />
+            <label class="form-check-label" for="costosLaborales">👷‍♀️ Costos laborales (salarios, beneficios)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosTecnologia" />
+            <label class="form-check-label" for="costosTecnologia">💻 Costos de tecnología (software, equipos)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosMarketing" />
+            <label class="form-check-label" for="costosMarketing">📢 Costos de marketing y publicidad</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosOperativos" />
+            <label class="form-check-label" for="costosOperativos">🏢 Costos operativos (alquiler, suministros)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosAdministrativos" />
+            <label class="form-check-label" for="costosAdministrativos">🗂️ Costos administrativos (contabilidad, servicios legales)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="costosDistribucion" />
+            <label class="form-check-label" for="costosDistribucion">🚛 Costos de distribución o logística</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="costosInnovacion" />
+            <label class="form-check-label" for="costosInnovacion">🧪 Costos de investigación y desarrollo (I+D)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué costos fijos tienes en tu negocio?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="alquiler" />
+            <label class="form-check-label" for="alquiler">🏠 Alquiler o hipoteca</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="salariosFijos" />
+            <label class="form-check-label" for="salariosFijos">👩‍💼 Salarios del personal fijo</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="softwareLicencias" />
+            <label class="form-check-label" for="softwareLicencias">🧾 Suscripciones o licencias de software</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="serviciosPublicos" />
+            <label class="form-check-label" for="serviciosPublicos">💡 Servicios públicos (electricidad, internet)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="prestamos" />
+            <label class="form-check-label" for="prestamos">💳 Pagos de préstamos o créditos</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="otrosFijos" />
+            <label class="form-check-label" for="otrosFijos">📌 Otros costos fijos</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué costos variables dependen de la demanda de tus productos o servicios?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="materiasPrimas" />
+            <label class="form-check-label" for="materiasPrimas">🧺 Costos de materias primas o insumos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="transporteVariable" />
+            <label class="form-check-label" for="transporteVariable">🚚 Costos de transporte o logística</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="freelancers" />
+            <label class="form-check-label" for="freelancers">🧑‍💻 Pago a freelancers o empleados temporales</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="publicidadVariable" />
+            <label class="form-check-label" for="publicidadVariable">📈 Publicidad (costo por clic, campañas)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="otrosVariables" />
+            <label class="form-check-label" for="otrosVariables">🌀 Otros costos variables</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo planeas reducir o optimizar estos costos?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="negociarProveedores" />
+            <label class="form-check-label" for="negociarProveedores">📉 Negociar mejores precios con proveedores</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="subcontratar" />
+            <label class="form-check-label" for="subcontratar">🔄 Subcontratar o externalizar actividades</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="automatizar" />
+            <label class="form-check-label" for="automatizar">🤖 Usar tecnología para automatizar procesos</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="reducirGastos" />
+            <label class="form-check-label" for="reducirGastos">✂️ Reducir gastos operativos innecesarios</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="eficienciaEquipo" />
+            <label class="form-check-label" for="eficienciaEquipo">⏱️ Mejorar la eficiencia del equipo y del tiempo</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="subsidios" />
+            <label class="form-check-label" for="subsidios">💵 Buscar financiamiento o subsidios</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="inventario" />
+            <label class="form-check-label" for="inventario">📦 Mejorar la gestión de inventarios</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Qué tan importante es controlar estos costos para la viabilidad de tu negocio?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="importanciaCostos" id="muyImportante" />
+            <label class="form-check-label" for="muyImportante">📊 Muy importante (sin control de costos, no sería rentable)</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="importanciaCostos" id="moderadamenteImportante" />
+            <label class="form-check-label" for="moderadamenteImportante">⚖️ Moderadamente importante (puedo tolerar ciertos márgenes)</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="importanciaCostos" id="noImportante" />
+            <label class="form-check-label" for="noImportante">🚀 No es tan importante (mi enfoque está en crecer primero)</label>
+        </div>
+
+        <hr class="my-5" />
+        <h3 class="text-primary mb-4">¿Cómo estimas que crecerán tus costos en el futuro?</h3>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="crecimientoCostos" id="aumentaranSignificativamente" />
+            <label class="form-check-label" for="aumentaranSignificativamente">📈 Aumentarán significativamente con el crecimiento</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="crecimientoCostos" id="aumentaranGradualmente" />
+            <label class="form-check-label" for="aumentaranGradualmente">📉 Aumentarán gradualmente</label>
+        </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="crecimientoCostos" id="crecimientoProporcional" />
+            <label class="form-check-label" for="crecimientoProporcional">⚖️ Mantendrán un crecimiento proporcional</label>
+        </div>
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="crecimientoCostos" id="reduciranConOptimizacion" />
+            <label class="form-check-label" for="reduciranConOptimizacion">🔧 Reducirán con la optimización de procesos</label>
+        </div>
+
+        <button class="btn btn-primary mt-3">Enviar respuestas</button>
+    </div>
+</div>
+
+
+
+
+
+
+@code {
+    public ActividadesClaves actividadesClaves = new ActividadesClaves();
+    public AliadosClaves aliadosClaves = new AliadosClaves();
+    public Canales canales = new Canales();
+    public Empresa empresa = new Empresa();
+    public EstructuraDeCostos estructuraDeCostos = new EstructuraDeCostos();
+    public FuenteDeIngresos fuenteDeIngresos = new FuenteDeIngresos();
+    public Negocio negocio = new Negocio();
+    public PropuestaValor propuestaValor = new PropuestaValor();
+    public RecursosClaves recursosClaves = new RecursosClaves();
+    public RelacionConClientes relacionClientes = new RelacionConClientes();
+    public SegmentoCliente segmentoCliente = new SegmentoCliente();
+    public TipoProducto tipoProducto = new TipoProducto();
+
+    public List<PropuestaValor> propuestaValorList = new();
+    public int propuestaSeleccionadaId;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var ActividadesClave = await actividadesClaveService.Listar(a => true);
+        var AliadoClave = await aliadosClaveService.Listar(a => true);
+        var Canal = await canalService.Listar(a => true);
+        var Empresa = await empresaService.Listar(a => true);
+        var EstructuraCostos = await estructuraService.Listar(a => true);
+        var FuenteIngresos = await fuenteIngresoService.Listar(a => true);
+        var Negocio = await negocioService.Listar(a => true);
+        var PropuestaValor = await propuestaValorService.Listar(a => true);
+        var RecursosClave = await recursoClaveService.Listar(a => true);
+        var RelacionCliente = await relacionClienteService.Listar(a => true);
+        var SegmentoCliente = await segmentoClienteService.Listar(a => true);
+        var TipoProducto = await productoService.Listar(a => true);
+    }
+
+}

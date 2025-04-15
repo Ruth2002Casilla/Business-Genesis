@@ -1,7 +1,7 @@
 ﻿using BusinessGenesis.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BusinessGenesis.Data
+namespace BusinessGenesis.DAL
 {
     public class GenesisContex : DbContext
     {
@@ -22,7 +22,8 @@ namespace BusinessGenesis.Data
         public DbSet<RecursosClaves> RecursosClaves { get; set; }
         public DbSet<RelacionConClientes> RelacionConClientes { get; set; }
         public DbSet<SegmentoCliente> SegmentoCliente { get; set; }
-       
+        public DbSet<TipoProducto> TipoProductos { get; set; }
+
 
 
 
@@ -208,7 +209,7 @@ namespace BusinessGenesis.Data
                 entity.Property(p => p.EnfoqueProducto).HasMaxLength(100);
             });
 
-     
+
 
         }
     }

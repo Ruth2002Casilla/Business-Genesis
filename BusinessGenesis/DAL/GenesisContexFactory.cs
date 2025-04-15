@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using BusinessGenesis.Data;  // Asegúrate de que el espacio de nombres sea correcto
 
-namespace BusinessGenesis.Data
+namespace BusinessGenesis.DAL
 {
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<GenesisContex>
     {
